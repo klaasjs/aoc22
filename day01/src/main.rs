@@ -1,3 +1,5 @@
+// all based upon the excellent work of fasterthanli.me
+// https://fasterthanli.me/series/advent-of-code-2022/part-1
 use itertools::Itertools;
 
 fn main() -> color_eyre::Result<()> {
