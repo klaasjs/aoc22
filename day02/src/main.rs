@@ -26,6 +26,16 @@ enum Outcome {
     Loss
 }
 
+impl Outcome {
+    fn inherit_points(self) -> usize {
+        match self {
+            Outcome::Win => 6,
+            Outcome::Draw => 3,
+            Outcome::Loss => 0
+        }
+    }
+}
+
 impl Move {
     fn outcome(self, theirs: Move) -> Outcome {
         match(self, theirs) {
@@ -47,6 +57,16 @@ impl Move {
 struct Round {
     theirs: Move,
     ours: Move
+}
+
+impl Round {
+    fn outcome(self) -> Outcome {
+        self.ours.outcome(self.theirs)
+    }
+
+    fn our_score(self) -> usize {
+        self.ours.inherit_points() + self.outcome().inherit_points()
+    }
 }
 
 impl TryFrom<char> for Move {
@@ -83,13 +103,12 @@ impl TryFrom<char> for Move {
 fn main() -> color_eyre::Result<()> {
     color_eyre::install();
 
-    for round in include_str!("input.txt")
+    let rounds: Vec<Round> = include_str!("input.txt")
         .lines()
-        .map(|line| line.parse::<Round>())
-    {
-        let round = round?;
-        println!("{round:?}");
-    }
+        .map(|line| line.parse())
+        .collect::<Result<_, _>>()?;
+    let total_score: usize = rounds.iter().map(|r| r.our_score()).sum();
+    dbg!(total_score);
 
     Ok(())
 }
