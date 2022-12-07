@@ -1,3 +1,5 @@
+// Taken from the excellent work of fasterthanli.me
+// https://fasterthanli.me/series/advent-of-code-2022/part-2
 use std::str::FromStr;
 
 #[derive(Debug, Clone, Copy)]
@@ -5,6 +7,23 @@ enum Move {
     Rock,
     Paper,
     Scissors,
+}
+
+impl Move {
+    fn inherit_points(self) -> usize {
+        match self {
+            Move::Rock => 1,
+            Move::Paper => 2,
+            Move::Scissors => 3,
+        }
+    }
+}
+
+#[derive(Debug, Clone, Copy)]
+enum Outcome {
+    Win,
+    Draw,
+    Lose
 }
 
 #[derive(Debug, Clone, Copy)]
@@ -41,6 +60,8 @@ impl TryFrom<char> for Move {
         })
     }
 }
+
+
 
 fn main() -> color_eyre::Result<()> {
     color_eyre::install();
