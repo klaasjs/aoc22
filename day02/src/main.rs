@@ -23,8 +23,25 @@ impl Move {
 enum Outcome {
     Win,
     Draw,
-    Lose
+    Loss
 }
+
+impl Move {
+    fn outcome(self, theirs: Move) -> Outcome {
+        match(self, theirs) {
+            (Move::Rock, Move::Rock) => Outcome::Draw,
+            (Move::Rock, Move::Paper) => Outcome::Loss,
+            (Move::Rock, Move::Scissors) => Outcome::Win,
+            (Move::Paper, Move::Rock) => Outcome::Win,
+            (Move::Paper, Move::Paper) => Outcome::Draw,
+            (Move::Paper, Move::Scissors) => Outcome::Loss,
+            (Move::Scissors, Move::Rock) => Outcome::Loss,
+            (Move::Scissors, Move::Paper) => Outcome::Win,
+            (Move::Scissors, Move::Scissors) => Outcome::Draw
+        }
+    }
+}
+
 
 #[derive(Debug, Clone, Copy)]
 struct Round {
