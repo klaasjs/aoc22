@@ -1,3 +1,6 @@
+// based on the excellent work of fasterthanli.me
+// https://fasterthanli.me/series/advent-of-code-2022/part-3
+
 #[repr(transparent)]
 struct Item(u8);
 
